@@ -1,0 +1,6 @@
+ultralytics>=8.3.0
+opencv-python>=4.10.0
+matplotlib>=3.8.0
+streamlit>=1.39.0
+pandas>=2.2.0
+numpy>=1.26.0

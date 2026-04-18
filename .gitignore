@@ -1,15 +1,1 @@
 yolov8n.pt
-
-# Python cache and bytecode
-__pycache__/
-*.py[cod]
-
-# Virtual environment
-.venv/
-
-# Local images and generated outputs
-*.png
-*.jpg
-*.jpeg
-*.webp
-outputs/

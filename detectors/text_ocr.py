@@ -1,5 +1,6 @@
 import cv2
 import numpy as np
+import os
 
 # lazy load — easyocr import is slow and pulls in a lot of stuff
 _reader = None
@@ -8,7 +9,19 @@ def _get_reader():
     global _reader
     if _reader is None:
         import easyocr
-        _reader = easyocr.Reader(['en'], gpu=False)
+
+        # on streamlit cloud, default ~/.EasyOCR can have permission/space issues
+        # so we use /tmp which is always writable
+        model_dir = os.environ.get("EASYOCR_MODEL_DIR", None)
+        if model_dir is None and os.path.exists("/tmp"):
+            model_dir = "/tmp/.EasyOCR"
+            os.makedirs(model_dir, exist_ok=True)
+
+        kwargs = {"lang_list": ['en'], "gpu": False}
+        if model_dir:
+            kwargs["model_storage_directory"] = model_dir
+
+        _reader = easyocr.Reader(**kwargs)
     return _reader
 
 
